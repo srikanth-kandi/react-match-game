@@ -1,26 +1,26 @@
 .tab-item-container {
-    margin-left: 10px;
-    margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .tab-item-button {
-    background-color: transparent;
-    outline: none;
-    border: none;
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-    font-family: "Roboto";
-    cursor: pointer;
-    padding: 10px;
-    border-bottom: 2px solid transparent;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: 'Roboto';
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 2px solid transparent;
 }
 
 .tab-item-button:hover {
-    border-bottom: 2px solid #fec653;
+  border-bottom: 2px solid #fec653;
 }
 
 .active-tab-item {
-    color: #fec653;
-    border-bottom: 2px solid #fec653;
+  color: #fec653;
+  border-bottom: 2px solid #fec653;
 }
