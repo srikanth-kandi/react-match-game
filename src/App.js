@@ -251,12 +251,11 @@ const imagesList = [
 
 // Replace your code here
 
-let randomImage = imagesList[Math.floor(Math.random() * imagesList.length)]
-
 const initialState = {
   activeTabId: tabsList[0].tabId,
   score: 0,
   timer: 60,
+  randomImage: imagesList[0],
 }
 
 class App extends Component {
@@ -277,7 +276,9 @@ class App extends Component {
   }
 
   updateRandomImage = () => {
-    randomImage = imagesList[Math.floor(Math.random() * imagesList.length)]
+    this.setState({
+      randomImage: imagesList[Math.floor(Math.random() * imagesList.length)],
+    })
   }
 
   onClickTabItem = tabId => {
@@ -285,10 +286,13 @@ class App extends Component {
   }
 
   onClickImageItem = id => {
+    const {randomImage} = this.state
     const randomImageId = randomImage.id
     if (randomImageId === id) {
-      this.setState(prevState => ({score: prevState.score + 1}))
-      this.updateRandomImage()
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        randomImage: imagesList[Math.floor(Math.random() * imagesList.length)],
+      }))
     } else {
       clearInterval(this.timerId)
       this.setState({timer: 0})
@@ -309,7 +313,7 @@ class App extends Component {
   }
 
   render() {
-    const {activeTabId, score, timer} = this.state
+    const {activeTabId, score, timer, randomImage} = this.state
     const filteredImages = this.getFilteredImages()
     return (
       <div className="app-container">
@@ -329,9 +333,7 @@ class App extends Component {
                 alt="timer"
                 className="timer-icon"
               />
-              <p className="timer">
-                <span className="highlight">{timer} sec</span>
-              </p>
+              <p className="timer highlight">{timer} sec</p>
             </div>
           </div>
         </div>
@@ -344,7 +346,7 @@ class App extends Component {
                 className="trophy"
               />
               <p className="your-score">YOUR SCORE</p>
-              <h1 className="final-score">{score}</h1>
+              <h1 className="score final-score">{score}</h1>
               <button
                 type="button"
                 className="reset-btn"
