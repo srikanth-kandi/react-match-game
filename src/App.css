@@ -117,8 +117,7 @@ body {
   background-position-x: center;
   padding: 20px;
   padding-bottom: 30px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
   min-height: 80vh;
 }
 
@@ -160,11 +159,34 @@ body {
   margin-right: 10px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
+  .header-container {
+    padding: 10px;
+  }
   .website-logo {
-    width: 200px;
+    width: 35%;
+    margin-left: 10px;
   }
   .score-timer-container {
-    width: 60%;
+    width: 50%;
+    justify-content: space-between;
+  }
+  .bg-container {
+    padding: 20px 20px;
+  }
+  .images-container {
+    margin-bottom: 0px;
+  }
+  .random-image {
+    width: 100%;
+  }
+  .trophy {
+    width: 80%;
+  }
+  .reset-btn {
+    font-size: 16px;
+  }
+  .reset-icon {
+    width: 18px;
   }
 }
