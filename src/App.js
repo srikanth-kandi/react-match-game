@@ -1,3 +1,6 @@
+import {Component} from 'react'
+import TabItem from './components/TabItem'
+import ImageItem from './components/ImageItem'
 import './App.css'
 
 // These are the lists used in the application. You can move them to any component needed.
@@ -247,6 +250,148 @@ const imagesList = [
 ]
 
 // Replace your code here
-const App = () => <div>Hello World</div>
+
+let randomImage = imagesList[Math.floor(Math.random() * imagesList.length)]
+
+const initialState = {
+  activeTabId: tabsList[0].tabId,
+  score: 0,
+  timer: 60,
+}
+
+class App extends Component {
+  state = initialState
+
+  componentDidMount() {
+    this.timerId = setInterval(this.updateTimer, 1000)
+  }
+
+  updateTimer = () => {
+    const {timer} = this.state
+    if (timer === 0) {
+      clearInterval(this.timerId)
+      this.setState({timer: 0})
+    } else {
+      this.setState(prevState => ({timer: prevState.timer - 1}))
+    }
+  }
+
+  updateRandomImage = () => {
+    randomImage = imagesList[Math.floor(Math.random() * imagesList.length)]
+  }
+
+  onClickTabItem = tabId => {
+    this.setState({activeTabId: tabId})
+  }
+
+  onClickImageItem = id => {
+    const randomImageId = randomImage.id
+    if (randomImageId === id) {
+      this.setState(prevState => ({score: prevState.score + 1}))
+      this.updateRandomImage()
+    } else {
+      clearInterval(this.timerId)
+      this.setState({timer: 0})
+    }
+  }
+
+  getFilteredImages = () => {
+    const {activeTabId} = this.state
+    const filteredImages = imagesList.filter(
+      eachImage => eachImage.category === activeTabId,
+    )
+    return filteredImages
+  }
+
+  resetGame = () => {
+    this.timerId = setInterval(this.updateTimer, 1000)
+    this.setState(initialState)
+  }
+
+  render() {
+    const {activeTabId, score, timer} = this.state
+    const filteredImages = this.getFilteredImages()
+    return (
+      <div className="app-container">
+        <div className="header-container">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
+            alt="website logo"
+            className="website-logo"
+          />
+          <div className="score-timer-container">
+            <p className="score">
+              Score: <span className="highlight">{score}</span>
+            </p>
+            <div className="timer-container">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
+                alt="timer"
+                className="timer-icon"
+              />
+              <p className="timer">
+                <span className="highlight">{timer} sec</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-container">
+          {timer === 0 ? (
+            <div className="game-over-container">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
+                alt="trophy"
+                className="trophy"
+              />
+              <p className="your-score">YOUR SCORE</p>
+              <h1 className="final-score">{score}</h1>
+              <button
+                type="button"
+                className="reset-btn"
+                onClick={this.resetGame}
+              >
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
+                  alt="reset"
+                  className="reset-icon"
+                />
+                PLAY AGAIN
+              </button>
+            </div>
+          ) : (
+            <>
+              <img
+                src={randomImage.imageUrl}
+                alt="match"
+                className="random-image"
+              />
+              <div className="tabs-container">
+                <ul className="tabs-list">
+                  {tabsList.map(eachTab => (
+                    <TabItem
+                      key={eachTab.tabId}
+                      tabDetails={eachTab}
+                      onClickTabItem={this.onClickTabItem}
+                      isActive={activeTabId === eachTab.tabId}
+                    />
+                  ))}
+                </ul>
+              </div>
+              <ul className="images-container">
+                {filteredImages.map(eachImage => (
+                  <ImageItem
+                    key={eachImage.id}
+                    imageDetails={eachImage}
+                    onClickImageItem={this.onClickImageItem}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
+    )
+  }
+}
 
 export default App

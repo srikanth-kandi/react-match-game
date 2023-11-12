@@ -1,0 +1,26 @@
+.image-item-container {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.thumbnail-image {
+    width: 100%;
+}
+
+.image-item-button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.image-item-button:hover {
+    transform: scale(1.1);
+}
