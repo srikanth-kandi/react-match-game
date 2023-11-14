@@ -171,6 +171,10 @@ body {
     width: 50%;
     justify-content: space-between;
   }
+  .highlight {
+    margin-left: 5px;
+    font-size: 16px;
+  }
   .bg-container {
     padding: 20px 20px;
   }
