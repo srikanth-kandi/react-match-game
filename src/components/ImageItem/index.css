@@ -24,3 +24,10 @@
 .image-item-button:hover {
   transform: scale(1.1);
 }
+
+@media screen and (max-width: 767px) {
+  .image-item-container {
+    width: 130px;
+    height: 130px;
+  }
+}
